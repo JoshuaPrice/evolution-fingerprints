@@ -1,6 +1,10 @@
 class LocalSettings:
     """
     Loads settings for local environment, e.g. data_dir (directory containing data).
+    Example usage:
+        import settings
+        s = settings.LocalSettings()
+        data_dir = s.get_setting('data_dir')
     """
 
     def __init__(self):

@@ -1,2 +1,2 @@
-user=Josh
-data_dir=~/cs229/project-data
+user=WRITE_YOUR_NAME
+data_dir=WRITE_PATH_TO_DATA_DIR

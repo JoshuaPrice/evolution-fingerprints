@@ -1,4 +1,4 @@
-import settings
+# from evfi.Settings.settings import LocalSettings
 
 class SimData:
 

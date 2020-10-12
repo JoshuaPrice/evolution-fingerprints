@@ -7,7 +7,8 @@ class LocalSettings:
         data_dir = s.get_setting('data_dir')
     """
 
-    def __init__(self):
+    def __init__(self, filename='local_settings.txt'):
+        self.filename=filename
         self.settings_dict = self.load_local_settings()
 
     def load_local_settings(self):
@@ -19,10 +20,11 @@ class LocalSettings:
         """
         settings = {}
 
-        settings_file = open("local_settings.txt", "r")
+        settings_file = open(self.filename, "r")
         for line in settings_file:
-            key, val = line.split("=")
-            settings[key] = val.replace('\n','')
+            if line not in ['\n', '\r\n']:
+                k, v = line.split("=")
+                settings[k] = v.replace('\n','')
         settings_file.close()
 
         return settings
@@ -35,3 +37,11 @@ class LocalSettings:
         """
         return self.settings_dict[key]
 
+
+if __name__ == '__main__':
+    # if called at command line, print all local settings
+    s = LocalSettings()
+    print("Local settings are:\n")
+    for key in s.settings_dict:
+        print(key + ": " + s.get_setting(key))
+    print("\n")

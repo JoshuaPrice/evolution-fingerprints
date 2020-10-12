@@ -1,2 +1,0 @@
-user=WRITE_YOUR_NAME
-data_dir=WRITE_PATH_TO_DATA_DIR

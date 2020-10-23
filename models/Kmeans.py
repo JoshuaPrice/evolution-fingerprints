@@ -9,7 +9,7 @@ class Kmeans:
         > clf.fit(patient_ID, data)
         > clf.predict(x)
     """
-    def __init__(self, k=5, max_iter=10000, eps=1e-5):
+    def __init__(self, k=5, predictor_count=30, max_iter=10000, eps=1e-5):
         """
         Args:
             step_size: Step size for iterative solvers only.
@@ -19,11 +19,32 @@ class Kmeans:
             verbose: Print loss values during training.
         """
         self.k = k
+        self.predictor_count = predictor_count
         self.tol = eps
         self.max_iter = max_iter
         self.centroids = {}
         self.clusters = {}
         self.patient_clusters = {}
+
+    def read_data(self, csv_path):
+        # Load features
+        headers = np.loadtxt(csv_path, delimiter=',', dtype="S", max_rows=1)
+
+        x_cols = np.asarray((np.arange(1, len(headers))))
+        patient_cols = [0]
+
+        inputs = np.loadtxt(csv_path, delimiter=',', skiprows=1, usecols=x_cols)
+        patient_ID = np.loadtxt(csv_path, dtype="S", delimiter=',', skiprows=1, usecols=patient_cols)
+        feature_names = headers[1:]
+
+        frequency = np.sum(inputs, axis=0)
+        ind = np.argpartition(frequency, -1 * self.predictor_count)[-1 * self.predictor_count:]
+        ind = ind[np.argsort(frequency[ind])]
+
+        final_features = inputs[:, ind]
+        feature_names = feature_names[ind]
+
+        return patient_ID, final_features, feature_names
 
 
     def fit(self, patient_ID, data):
@@ -35,7 +56,6 @@ class Kmeans:
         for i in range(self.k):
             self.centroids[i] = data[i]
 
-        self.clusters = {}
         for i in range(self.max_iter):
             for j in range(self.k):
                 self.clusters[j] = []
@@ -72,7 +92,20 @@ class Kmeans:
         # *** START CODE HERE ***
         # *** END CODE HERE
 
+
+
 def main():
+    model = Kmeans()
+
+    patient_ID, features, feature_names = model.read_data("/Users/juliapark/GitHub/julia-evolution-data/matrix-chrY.csv")
+    model.fit(patient_ID, features)
+    print(model.patient_clusters[0])
+    print(model.patient_clusters[1])
+    print(model.patient_clusters[2])
+    print(model.patient_clusters[3])
+    print(model.patient_clusters[4])
+
+
 
 
 

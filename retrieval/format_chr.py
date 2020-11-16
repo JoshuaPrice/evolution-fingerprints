@@ -33,9 +33,10 @@ class FormatChr:
             if line[:6] == "#CHROM":
                 read_in_line = True
                 tab_count_constraint = line.count('\t')
-            line_binary = line.replace(".", "0")
+            line_filtered = line.replace(".", "0").replace("0:0", "0").replace("0:1", "0.5").replace("1:0", "0.5").replace("1:1", "1")
+
             if read_in_line and line.count('\t') == tab_count_constraint:
-                temp_readable_file.write(line_binary)
+                temp_readable_file.write(line_filtered)
 
         raw_data_file.close()
         temp_readable_file.close()
@@ -59,7 +60,7 @@ class FormatChr:
         # set any weird values in the matrix to 0, make all values ints (0 or 1) instead of strings
         for col in labeled_binary.columns[1:]:
             labeled_binary.loc[~labeled_binary[col].isin([0, 1]), col] = 0
-        labeled_binary = labeled_binary.set_index("ID").astype(int)
+        labeled_binary = labeled_binary.set_index("ID").astype(float)
 
         # transpose to make Julia happy
         labeled_flipped = labeled_binary.transpose()

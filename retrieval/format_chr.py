@@ -14,10 +14,17 @@ class FormatChr:
         data_matrix = format_obj.read_and_format
     '''
 
-    def __init__(self, data_dir, input_file):
-        self.input_file = input_file
+    def __init__(self, data_dir, chr_id):
+        self.input_file = 'chr' + str(chr_id) + '.csv'
         self.data_dir = data_dir
-        self.temp_readable_file = data_dir + '/temp_' + input_file
+        self.temp_readable_file = data_dir + '/temp_' + self.input_file
+        self.interesting_snps = self.get_interesting_snps(chr_id)
+
+    def get_interesting_snps(self, chr_id):
+        chr_file = self.data_dir + '/all_sets.csv'
+        all_interesting_snps_df = pd.read_csv(chr_file, names=['chr', 'id'], index_col=None)
+        chr_intereting_snps = all_interesting_snps_df[all_interesting_snps_df['chr']==chr_id]
+        return chr_intereting_snps['id'].to_list()
 
     def write_readable_file(self):
         '''
@@ -33,9 +40,11 @@ class FormatChr:
             if line[:6] == "#CHROM":
                 read_in_line = True
                 tab_count_constraint = line.count('\t')
-            line_binary = line.replace(".", "0")
-            if read_in_line and line.count('\t') == tab_count_constraint:
-                temp_readable_file.write(line_binary)
+            line_filtered = line.replace(".", "0").replace("0|0", "0").replace("0|1", "0.5").replace("1|0", "0.5").replace("1|1", "1")
+
+            consider_line_if_includes = self.interesting_snps + ["ID"] # need to include header line
+            if read_in_line and line.count('\t') == tab_count_constraint and any(interest in line for interest in consider_line_if_includes):
+                temp_readable_file.write(line_filtered)
 
         raw_data_file.close()
         temp_readable_file.close()
@@ -59,7 +68,7 @@ class FormatChr:
         # set any weird values in the matrix to 0, make all values ints (0 or 1) instead of strings
         for col in labeled_binary.columns[1:]:
             labeled_binary.loc[~labeled_binary[col].isin([0, 1]), col] = 0
-        labeled_binary = labeled_binary.set_index("ID").astype(int)
+        labeled_binary = labeled_binary.set_index("ID").astype(float)
 
         # transpose to make Julia happy
         labeled_flipped = labeled_binary.transpose()
@@ -71,6 +80,7 @@ class FormatChr:
         :return: None
         '''
         labeled_flipped = self.read_and_format()
+        print("got past read_and_format")
         labeled_flipped.to_csv(self.data_dir + "/matrix-" + self.input_file)
 
         labeled_binary = labeled_flipped.transpose()
@@ -81,12 +91,15 @@ class FormatChr:
 
 def main(data_dir, data_file):
     format_obj = FormatChr(data_dir, data_file)
+    print("Created FormatChr object. Now writing temp file")
     format_obj.write_readable_file()
+    print("Finished writign temp file. Now formatting and saving.")
     format_obj.format_and_save()
+    print("Exiting program.")
 
 
 if __name__ == "__main__":
-    # example usage: python3 format_chr.py "/shared/data" "chrY.csv"
+    # example usage: python3 format_chr.py "/shared/data" "Y"
     data_dir = sys.argv[1]
-    data_file = sys.argv[2]
-    main(data_dir, data_file)
+    chr_id = sys.argv[2]
+    main(data_dir, chr_id)

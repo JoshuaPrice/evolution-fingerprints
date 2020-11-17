@@ -42,7 +42,8 @@ class FormatChr:
                 tab_count_constraint = line.count('\t')
             line_filtered = line.replace(".", "0").replace("0|0", "0").replace("0|1", "0.5").replace("1|0", "0.5").replace("1|1", "1")
 
-            if read_in_line and line.count('\t') == tab_count_constraint and any(interesting_snp in line for interesting_snp in self.interesting_snps):
+            consider_line_if_includes = self.interesting_snps + ["ID"] # need to include header line
+            if read_in_line and line.count('\t') == tab_count_constraint and any(interest in line for interest in consider_line_if_includes):
                 temp_readable_file.write(line_filtered)
 
         raw_data_file.close()

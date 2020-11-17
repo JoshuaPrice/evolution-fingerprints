@@ -1,9 +1,21 @@
 '''
 Usage: python3 eval.py 1.csv 2.csv etc.
 The program will compute the evaluation metric for each clustering csv file.
-Adjust the following filepath for ground truth labels and raw data if necessary.
+Format of input file: List of samples in each cluster separated by comma, one cluser per line
+Adjust the following POP_PATH_INIT and DATA_PATH_INIT for population data and raw SNP data if necessary.
+
+Usage as module:
+    ev = Eval(data_path)
+    ev.init_data()
+    ev.read_clusters(cluster_path)
+
+    ev.calinski-harabasz()
+
+    (if using get_pop_dist())
+    ev.init_pop(pop_path)
+    ev.get_pop_dist()
 '''
-LABEL_PATH_INIT = '~/evfi/igsr_samples.tsv'
+POP_PATH_INIT = None #if using ev.get_pop_dist(), set this as 'PATH_to_evfi/igsr_samples.tsv'
 DATA_PATH_INIT = '/mnt/datadrive/data/full-data-matrix.csv'
 
 import sys
@@ -16,9 +28,9 @@ import pdb
 
 class Eval:
 
-    def __init__(self, label_path, data_path):
-        self.label_path = label_path
-        self.labels = {}
+    def __init__(self, data_path):
+        self.pop_path = None
+        self.pops = {}
 
         self.data_path = data_path
         self.data = None
@@ -29,15 +41,15 @@ class Eval:
         self.clusters = []
         self.num_clusters = 0
 
-    def init_label(self):
+    def init_pop(self, pop_path):
         '''
         Reads in the ground truth into dict self.labels
         (key) Sample ID > (value) [Population, Superpopulation]
         Population is a subclass of Superpopulation (e.g. FINnish in EURopean)
         '''
-        dt_label = pd.read_csv(self.label_path, sep='\t', index_col='Sample name')
-        dt_label = dt_label.T.loc[['Population code', 'Superpopulation code']]
-        self.labels = dt_label.to_dict('list')
+        dt_pop = pd.read_csv(pop_path, sep='\t', index_col='Sample name')
+        dt_pop = dt_pop.T.loc[['Population code', 'Superpopulation code']]
+        self.pops = dt_pop.to_dict('list')
 
     def init_data(self):
         '''
@@ -93,7 +105,7 @@ class Eval:
         of percentages of each population in each cluster
         '''
         pop_idx_dict = {}
-        for pop, superpop in self.labels.values():
+        for pop, superpop in self.pops.values():
             label = superpop if use_superpop else pop
             if label not in pop_idx_dict.keys():
                 pop_idx_dict[label] = len(pop_idx_dict.keys())
@@ -102,7 +114,7 @@ class Eval:
         for cluster_idx in range(self.num_clusters):
             cluster_elems = self.clusters[cluster_idx]
             for elem in cluster_elems:
-                pop = self.labels[elem]
+                pop = self.pops[elem]
                 label = pop[1] if use_superpop else pop[0]
                 pop_dist[cluster_idx, pop_idx_dict[label]] += 1
 
@@ -111,24 +123,26 @@ class Eval:
         return pop_dist
 
 
-def main(label_path, data_path, cluster_paths):
-    ev = Eval(label_path, data_path)
-    ev.init_label()
+def main(pop_path, data_path, cluster_paths):
+    ev = Eval(data_path)
     ev.init_data()
     for cluster_path in cluster_paths:
         ev.read_clusters(cluster_path)
         within_var, ch_score = ev.calinski_harabasz()
         # skip if score is nan (i.e. there is an empty cluster)
         if np.isnan(ch_score):
+            print("Path :", cluster_path, "\nhas an empty cluster; skipping...\n")
             continue
-        print("Path :", cluster_path, "\nCalinski-Harabasz score", ch_score, "\nwithin_variance", within_var)
+        print("Path :", cluster_path, "\nCalinski-Harabasz score", format(ch_score,".2f"), \
+                "// within_variance", format(within_var, ".2f"), "\n")
 
-        pop_dist = ev.get_pop_dist(use_superpop=True)
-        print(pop_dist)
+        # ev.init_pop(pop_path)
+        # pop_dist = ev.get_pop_dist(use_superpop=True)
+        # print(pop_dist)
 
 if __name__ == "__main__":
-    label_path = LABEL_PATH_INIT
+    pop_path = POP_PATH_INIT
     data_path = DATA_PATH_INIT
     cluster_paths = sys.argv[1:]
-    main(label_path, data_path, cluster_paths)
+    main(pop_path, data_path, cluster_paths)
 

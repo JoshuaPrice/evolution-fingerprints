@@ -33,7 +33,7 @@ class FormatChr:
             if line[:6] == "#CHROM":
                 read_in_line = True
                 tab_count_constraint = line.count('\t')
-            line_filtered = line.replace(".", "0").replace("0:0", "0").replace("0:1", "0.5").replace("1:0", "0.5").replace("1:1", "1")
+            line_filtered = line.replace(".", "0").replace("0|0", "0").replace("0|1", "0.5").replace("1|0", "0.5").replace("1|1", "1")
 
             if read_in_line and line.count('\t') == tab_count_constraint:
                 temp_readable_file.write(line_filtered)
@@ -72,6 +72,7 @@ class FormatChr:
         :return: None
         '''
         labeled_flipped = self.read_and_format()
+        print("got past read_and_format")
         labeled_flipped.to_csv(self.data_dir + "/matrix-" + self.input_file)
 
         labeled_binary = labeled_flipped.transpose()
@@ -82,8 +83,11 @@ class FormatChr:
 
 def main(data_dir, data_file):
     format_obj = FormatChr(data_dir, data_file)
+    print("Created FormatChr object. Now writing temp file")
     format_obj.write_readable_file()
+    print("Finished writign temp file. Now formatting and saving.")
     format_obj.format_and_save()
+    print("Exiting program.")
 
 
 if __name__ == "__main__":

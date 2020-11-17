@@ -6,7 +6,6 @@ Adjust the following POP_PATH_INIT and DATA_PATH_INIT for population data and ra
 
 Usage as module:
     ev = Eval(data_path)
-    ev.init_data()
     ev.read_clusters(cluster_path)
 
     ev.calinski-harabasz()
@@ -40,6 +39,8 @@ class Eval:
         	
         self.clusters = []
         self.num_clusters = 0
+
+        self.init_data()
 
     def init_pop(self, pop_path):
         '''
@@ -125,7 +126,7 @@ class Eval:
 
 def main(pop_path, data_path, cluster_paths):
     ev = Eval(data_path)
-    ev.init_data()
+
     for cluster_path in cluster_paths:
         ev.read_clusters(cluster_path)
         within_var, ch_score = ev.calinski_harabasz()

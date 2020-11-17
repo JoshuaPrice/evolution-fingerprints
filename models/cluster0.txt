@@ -1,0 +1,208 @@
+HG00148,male,GBR,British,EUR,European Ancestry
+HG00155,male,GBR,British,EUR,European Ancestry
+HG00251,male,GBR,British,EUR,European Ancestry
+HG00256,male,GBR,British,EUR,European Ancestry
+HG00129,male,GBR,British,EUR,European Ancestry
+HG00131,male,GBR,British,EUR,European Ancestry
+HG00243,male,GBR,British,EUR,European Ancestry
+HG00143,male,GBR,British,EUR,European Ancestry
+HG00244,male,GBR,British,EUR,European Ancestry
+HG00105,male,GBR,British,EUR,European Ancestry
+HG00112,male,GBR,British,EUR,European Ancestry
+HG00142,male,GBR,British,EUR,European Ancestry
+HG00116,male,GBR,British,EUR,European Ancestry
+HG00267,male,FIN,Finnish,EUR,European Ancestry
+HG00096,male,GBR,British,EUR,European Ancestry
+HG00731,male,PUR,Puerto Rican,AMR,American Ancestry
+HG00736,male,PUR,Puerto Rican,AMR,American Ancestry
+HG01259,male,CLM,Colombian,AMR,American Ancestry
+HG01280,male,CLM,Colombian,AMR,American Ancestry
+HG01075,male,PUR,Puerto Rican,AMR,American Ancestry
+HG01082,male,PUR,Puerto Rican,AMR,American Ancestry
+HG01176,male,PUR,Puerto Rican,AMR,American Ancestry
+HG01247,male,PUR,Puerto Rican,AMR,American Ancestry
+HG01121,male,CLM,Colombian,AMR,American Ancestry
+HG01413,male,PUR,Puerto Rican,AMR,American Ancestry
+HG01063,male,PUR,Puerto Rican,AMR,American Ancestry
+HG01521,male,IBS,Iberian,EUR,European Ancestry
+HG01374,male,CLM,Colombian,AMR,American Ancestry
+HG01241,male,PUR,Puerto Rican,AMR,American Ancestry
+HG01350,male,CLM,Colombian,AMR,American Ancestry
+HG01359,male,CLM,Colombian,AMR,American Ancestry
+HG01506,male,IBS,Iberian,EUR,European Ancestry
+HG01398,male,PUR,Puerto Rican,AMR,American Ancestry
+HG01518,male,IBS,Iberian,EUR,European Ancestry
+HG01479,male,CLM,Colombian,AMR,American Ancestry
+HG01709,male,IBS,Iberian,EUR,European Ancestry
+HG01392,male,PUR,Puerto Rican,AMR,American Ancestry
+HG01747,male,IBS,Iberian,EUR,European Ancestry
+HG01405,male,PUR,Puerto Rican,AMR,American Ancestry
+HG01785,male,IBS,Iberian,EUR,European Ancestry
+HG01615,male,IBS,Iberian,EUR,European Ancestry
+HG01603,male,IBS,Iberian,EUR,European Ancestry
+HG01443,male,CLM,Colombian,AMR,American Ancestry
+HG01608,male,IBS,Iberian,EUR,European Ancestry
+HG01761,male,IBS,Iberian,EUR,European Ancestry
+HG01777,male,IBS,Iberian,EUR,European Ancestry
+HG01789,male,GBR,British,EUR,European Ancestry
+HG01879,male,ACB,African Caribbean,AFR,African Ancestry
+HG01708,male,IBS,Iberian,EUR,European Ancestry
+HG01669,male,IBS,Iberian,EUR,European Ancestry
+HG01765,male,IBS,Iberian,EUR,European Ancestry
+HG01917,male,PEL,Peruvian,AMR,American Ancestry
+HG01932,male,PEL,Peruvian,AMR,American Ancestry
+HG01791,male,GBR,British,EUR,European Ancestry
+HG02233,male,IBS,Iberian,EUR,European Ancestry
+HG02238,male,IBS,Iberian,EUR,European Ancestry
+HG02219,male,IBS,Iberian,EUR,European Ancestry
+HG02221,male,IBS,Iberian,EUR,European Ancestry
+NA11994,male,CEU,CEPH,EUR,European Ancestry
+NA12005,male,CEU,CEPH,EUR,European Ancestry
+NA12043,male,CEU,CEPH,EUR,European Ancestry
+NA07347,male,CEU,CEPH,EUR,European Ancestry
+NA07048,male,CEU,CEPH,EUR,European Ancestry
+NA11831,male,CEU,CEPH,EUR,European Ancestry
+NA12144,male,CEU,CEPH,EUR,European Ancestry
+NA12340,male,CEU,CEPH,EUR,European Ancestry
+NA10851,male,CEU,CEPH,EUR,European Ancestry
+NA12827,male,CEU,CEPH,EUR,European Ancestry
+NA12872,male,CEU,CEPH,EUR,European Ancestry
+NA12889,male,CEU,CEPH,EUR,European Ancestry
+NA12775,male,CEU,CEPH,EUR,European Ancestry
+NA12814,male,CEU,CEPH,EUR,European Ancestry
+NA19777,male,MXL,Mexican Ancestry,AMR,American Ancestry
+NA19789,male,MXL,Mexican Ancestry,AMR,American Ancestry
+NA19649,male,MXL,Mexican Ancestry,AMR,American Ancestry
+NA19741,male,MXL,Mexican Ancestry,AMR,American Ancestry
+NA19652,male,MXL,Mexican Ancestry,AMR,American Ancestry
+NA20515,male,TSI,Toscani,EUR,European Ancestry
+NA20798,male,TSI,Toscani,EUR,European Ancestry
+NA20806,male,TSI,Toscani,EUR,European Ancestry
+NA20519,male,TSI,Toscani,EUR,European Ancestry
+NA20754,male,TSI,Toscani,EUR,European Ancestry
+NA20759,male,TSI,Toscani,EUR,European Ancestry
+NA20318,male,ASW,African Ancestry SW,AFR,African Ancestry
+NA20785,male,TSI,Toscani,EUR,European Ancestry
+NA20792,male,TSI,Toscani,EUR,European Ancestry
+NA20356,male,ASW,African Ancestry SW,AFR,African Ancestry
+NA20812,male,TSI,Toscani,EUR,European Ancestry
+NA20538,male,TSI,Toscani,EUR,European Ancestry
+NA20755,male,TSI,Toscani,EUR,European Ancestry
+NA20278,male,ASW,African Ancestry SW,AFR,African Ancestry
+HG00126,male,GBR,British,English,EUR,European Ancestry,West Eurasia (SGDP)
+HG00138,male,GBR,British,EUR,European Ancestry
+HG00107,male,GBR,British,EUR,European Ancestry
+HG00119,male,GBR,British,EUR,European Ancestry
+HG00246,male,GBR,British,EUR,European Ancestry
+HG00145,male,GBR,British,EUR,European Ancestry
+HG00157,male,GBR,British,EUR,European Ancestry
+HG00260,male,GBR,British,EUR,European Ancestry
+HG00265,male,GBR,British,EUR,European Ancestry
+HG01047,male,PUR,Puerto Rican,AMR,American Ancestry
+HG01066,male,PUR,Puerto Rican,AMR,American Ancestry
+HG01085,male,PUR,Puerto Rican,AMR,American Ancestry
+HG00739,male,PUR,Puerto Rican,AMR,American Ancestry
+HG01136,male,CLM,Colombian,AMR,American Ancestry
+HG01148,male,CLM,Colombian,AMR,American Ancestry
+HG00264,male,GBR,British,EUR,European Ancestry
+HG01383,male,CLM,Colombian,AMR,American Ancestry
+HG01491,male,CLM,Colombian,AMR,American Ancestry
+HG00149,male,GBR,British,EUR,European Ancestry
+HG01395,male,PUR,Puerto Rican,AMR,American Ancestry
+HG00637,male,PUR,Puerto Rican,AMR,American Ancestry
+HG01624,male,IBS,Iberian,EUR,European Ancestry
+HG01631,male,IBS,Iberian,EUR,European Ancestry
+HG01775,male,IBS,Iberian,EUR,European Ancestry
+HG01953,male,PEL,Peruvian,AMR,American Ancestry
+HG00103,male,GBR,British,EUR,European Ancestry
+HG00108,male,GBR,British,EUR,European Ancestry
+HG01060,male,PUR,Puerto Rican,AMR,American Ancestry
+HG00115,male,GBR,British,EUR,European Ancestry
+HG01941,male,PEL,Peruvian,AMR,American Ancestry
+HG01286,male,PUR,Puerto Rican,AMR,American Ancestry
+HG02002,male,PEL,Peruvian,AMR,American Ancestry
+HG02014,male,ACB,African Caribbean,AFR,African Ancestry
+HG01173,male,PUR,Puerto Rican,AMR,American Ancestry
+HG01503,male,IBS,Iberian,Spanish,EUR,European Ancestry,West Eurasia (SGDP)
+HG01440,male,CLM,Colombian,AMR,American Ancestry
+HG01464,male,CLM,Colombian,AMR,American Ancestry
+HG01356,male,CLM,Colombian,AMR,American Ancestry
+HG01488,male,CLM,Colombian,AMR,American Ancestry
+HG00242,male,GBR,British,EUR,European Ancestry
+HG00139,male,GBR,British,EUR,European Ancestry
+HG01577,male,PEL,Peruvian,AMR,American Ancestry
+HG00141,male,GBR,British,EUR,European Ancestry
+HG02343,male,ACB,African Caribbean,AFR,African Ancestry
+HG01630,male,IBS,Iberian,EUR,European Ancestry
+HG01678,male,IBS,Iberian,EUR,European Ancestry
+HG01705,male,IBS,Iberian,EUR,European Ancestry
+HG00742,male,PUR,Puerto Rican,AMR,American Ancestry
+HG01700,male,IBS,Iberian,EUR,European Ancestry
+HG01767,male,IBS,Iberian,EUR,European Ancestry
+HG02545,male,ACB,African Caribbean,AFR,African Ancestry
+HG01048,male,PUR,Puerto Rican,AMR,American Ancestry
+HG01334,male,GBR,British,EUR,European Ancestry
+HG01341,male,CLM,Colombian,AMR,American Ancestry
+HG01353,male,CLM,Colombian,AMR,American Ancestry
+HG02051,male,ACB,African Caribbean,AFR,African Ancestry
+HG01079,male,PUR,Puerto Rican,AMR,American Ancestry
+HG01170,male,PUR,Puerto Rican,AMR,American Ancestry
+HG01271,male,CLM,Colombian,AMR,American Ancestry
+HG01182,male,PUR,Puerto Rican,AMR,American Ancestry
+HG01365,male,CLM,Colombian,AMR,American Ancestry
+HG01500,male,IBS,Iberian,EUR,European Ancestry
+HG01536,male,IBS,Iberian,EUR,European Ancestry
+HG01550,male,CLM,Colombian,AMR,American Ancestry
+HG01389,male,CLM,Colombian,AMR,American Ancestry
+HG01461,male,CLM,Colombian,AMR,American Ancestry
+HG02501,male,ACB,African Caribbean,AFR,African Ancestry
+HG01524,male,IBS,Iberian,EUR,European Ancestry
+HG01625,male,IBS,Iberian,EUR,European Ancestry
+HG01606,male,IBS,Iberian,EUR,European Ancestry
+HG01675,male,IBS,Iberian,EUR,European Ancestry
+HG01682,male,IBS,Iberian,EUR,European Ancestry
+HG01694,male,IBS,Iberian,EUR,European Ancestry
+HG01771,male,IBS,Iberian,EUR,European Ancestry
+HG01783,male,IBS,Iberian,EUR,European Ancestry
+HG02008,male,PEL,Peruvian,AMR,American Ancestry
+HG02231,male,IBS,Iberian,EUR,European Ancestry
+HG02281,male,ACB,African Caribbean,AFR,African Ancestry
+NA12812,male,CEU,CEPH,EUR,European Ancestry
+HG02262,male,PEL,Peruvian,AMR,American Ancestry
+NA12829,male,CEU,CEPH,EUR,European Ancestry
+NA12874,male,CEU,CEPH,EUR,European Ancestry
+NA12716,male,CEU,CEPH,EUR,European Ancestry
+NA12045,male,CEU,CEPH,EUR,European Ancestry
+NA06984,male,CEU,CEPH,EUR,European Ancestry
+NA12272,male,CEU,CEPH,EUR,European Ancestry
+NA12342,male,CEU,CEPH,EUR,European Ancestry
+NA12347,male,CEU,CEPH,EUR,European Ancestry
+NA19661,male,MXL,Mexican Ancestry,AMR,American Ancestry
+NA12842,male,CEU,CEPH,EUR,European Ancestry
+NA19717,male,MXL,Mexican Ancestry,AMR,American Ancestry
+NA19750,male,MXL,Mexican Ancestry,AMR,American Ancestry
+NA19762,male,MXL,Mexican Ancestry,AMR,American Ancestry
+NA12760,male,CEU,CEPH,EUR,European Ancestry
+NA20524,male,TSI,Toscani,EUR,European Ancestry
+NA20581,male,TSI,Toscani,EUR,European Ancestry
+NA20783,male,TSI,Toscani,EUR,European Ancestry
+NA20803,male,TSI,Toscani,EUR,European Ancestry
+NA20810,male,TSI,Toscani,EUR,European Ancestry
+NA20586,male,TSI,Toscani,EUR,European Ancestry
+NA20752,male,TSI,Toscani,EUR,European Ancestry
+NA20512,male,TSI,Toscani,EUR,European Ancestry
+NA12762,male,CEU,CEPH,EUR,European Ancestry
+NA07357,male,CEU,CEPH,EUR,European Ancestry
+NA12399,male,CEU,CEPH,EUR,European Ancestry
+NA19658,male,MXL,Mexican Ancestry,AMR,American Ancestry
+NA12154,male,CEU,CEPH,EUR,European Ancestry
+NA06986,male,CEU,CEPH,EUR,European Ancestry
+NA20814,male,TSI,Toscani,EUR,European Ancestry
+NA20509,male,TSI,Toscani,EUR,European Ancestry
+NA20770,male,TSI,Toscani,EUR,European Ancestry
+NA19679,male,MXL,Mexican Ancestry,AMR,American Ancestry
+NA19720,male,MXL,Mexican Ancestry,AMR,American Ancestry
+NA19756,male,MXL,Mexican Ancestry,AMR,American Ancestry
+NA19922,male,ASW,African Ancestry SW,AFR,African Ancestry
+NA20518,male,TSI,Toscani,EUR,European Ancestry
+NA20342,male,ASW,African Ancestry SW,AFR,African Ancestry

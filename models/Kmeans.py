@@ -1,48 +1,74 @@
 import numpy as np
+import pandas as pd
+import random
+import csv
+from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
+
+
+# change this to your data file path
+chrY_matrix_filepath = "/Users/juliapark/GitHub/julia-evolution-data/matrix-chrY.csv"
+patient_region_filepath = "/Users/juliapark/GitHub/julia-evolution-data/igsr_samples.tsv"
+all_matrix_filepath = "/Users/juliapark/GitHub/julia-evolution-data/full-data-matrix.csv"
+hapset_filepath = "/Users/juliapark/GitHub/julia-evolution-data/hap-set.csv"
 
 
 class Kmeans:
     """Kmeans clustering.
 
-    Example usage:
-        > clf = Kmeans()
-        > clf.fit(patient_ID, data)
-        > clf.predict(x)
+    Properties:
+         k: the number of clusters. (int)
+            predictor_count: number of predictors to use (int)
+            max_iter: maximum number of iterations (int)
+            tol: used for testing convergence (float)
+            centroids: values of centroids (dictionary with keys 0 to k-1, values arrays of size predictor_count)
+            clusters: the data points assigned to each cluster (dictionary with keys 0 to k-1, values arrays of predictor arrays)
+            patient_clusters: the patients assigned to each cluster (dictionary with keys 0 to k-1, values arrays of patient IDs)
     """
-    def __init__(self, k=5, predictor_count=30, max_iter=10000, eps=1e-5):
+
+    def __init__(self, k=5, predictor_count=20, max_iter=10000, tol=1e-5):
         """
         Args:
-            step_size: Step size for iterative solvers only.
-            max_iter: Maximum number of iterations for the solver.
-            eps: Threshold for determining convergence.
-            theta_0: Initial guess for theta. If None, use the zero vector.
-            verbose: Print loss values during training.
+            k: the number of clusters. (int)
+            predictor_count: number of predictors to use (int)
+            max_iter: maximum number of iterations (int)
+            tol: used for testing convergence (float)
         """
         self.k = k
         self.predictor_count = predictor_count
-        self.tol = eps
         self.max_iter = max_iter
+        self.tol = tol
         self.centroids = {}
         self.clusters = {}
         self.patient_clusters = {}
 
     def read_data(self, csv_path):
+        """
+        Args:
+            csv_path: path to a csv file
+        """
         # Load features
-        headers = np.loadtxt(csv_path, delimiter=',', dtype="S", max_rows=1)
+        headers = np.genfromtxt(csv_path, delimiter=',', dtype="U10", max_rows=1)
 
         x_cols = np.asarray((np.arange(1, len(headers))))
         patient_cols = [0]
 
         inputs = np.loadtxt(csv_path, delimiter=',', skiprows=1, usecols=x_cols)
-        patient_ID = np.loadtxt(csv_path, dtype="S", delimiter=',', skiprows=1, usecols=patient_cols)
+        patient_ID = np.loadtxt(csv_path, delimiter=',', dtype="U10", skiprows=1, usecols=patient_cols)
         feature_names = headers[1:]
 
-        frequency = np.sum(inputs, axis=0)
-        ind = np.argpartition(frequency, -1 * self.predictor_count)[-1 * self.predictor_count:]
-        ind = ind[np.argsort(frequency[ind])]
+        # by PCA
+        pca = PCA(n_components=self.predictor_count)
+        final_features = pca.fit_transform(inputs)
+        feature_names = pca
 
-        final_features = inputs[:, ind]
-        feature_names = feature_names[ind]
+        # by frequency
+        #frequency = np.sum(inputs, axis=0)
+        #ind = np.argpartition(frequency, -1 * self.predictor_count)[-1 * self.predictor_count:]
+        #ind = ind[np.argsort(frequency[ind])]
+
+        #final_features = inputs[:, ind]
+        #feature_names = feature_names[ind]
 
         return patient_ID, final_features, feature_names
 
@@ -52,9 +78,13 @@ class Kmeans:
         Args:
             x: Training example inputs. Shape (n_examples, dim).
         """
-        # *** START CODE HERE ***
+        # random initialization
         for i in range(self.k):
-            self.centroids[i] = data[i]
+            self.centroids[i] = data[random.randrange(start=0, stop=len(patient_ID)-1)]
+
+        # static initialization
+        #for i in range(self.k):
+        #   self.centroids[i] = data[i]
 
         for i in range(self.max_iter):
             for j in range(self.k):
@@ -79,31 +109,58 @@ class Kmeans:
 
             if optimized:
                 break
-        # *** END CODE HERE ***
 
-    def predict(self, x):
-        """
-        Args:
-            x: Inputs of shape (n_examples, dim).
+def read_inputs(data_filepath, filter_filepath):
+    full_matrix = pd.read_csv(data_filepath, index_col=0)
+    snp_set = np.loadtxt(filter_filepath, dtype="U10", delimiter=',')
 
-        Returns:
-            Outputs of shape (n_examples,).
-        """
-        # *** START CODE HERE ***
-        # *** END CODE HERE
+    full_mat_cols = full_matrix.columns
+    filtered_cols = full_mat_cols.intersection(snp_set)
+    patient_ID = np.loadtxt(data_filepath, delimiter=',', dtype="U10", skiprows=1, usecols=0)
+    return full_matrix.loc[:, filtered_cols], patient_ID
 
+def run_experiment(data_filepath, filter_filepath, ks, predictor_counts, rounds=3):
+    features, patient_ID = read_inputs(data_filepath, filter_filepath)
+    features = features.to_numpy()
+    for k in ks:
+        for predictor_count in predictor_counts:
+            for i in range(rounds):
+                model = Kmeans(k=k, predictor_count=predictor_count)
+                model.fit(patient_ID, features)
+
+                output_filepath = "clusters_kmeans_hap_set_k%s_p%s_%s.csv" % (k, predictor_count, i)
+                w = csv.writer(open(output_filepath, "w"))
+                for key, val in model.patient_clusters.items():
+                    w.writerow(val)
+                print("finished ", output_filepath)
+
+
+def find_best_predictor_count(inputs):
+    pca = PCA(n_components=50)
+    features = pca.fit_transform(inputs)
+    PC_values = np.arange(pca.n_components_) + 1
+    plt.plot(PC_values, pca.explained_variance_ratio_, 'ro-', linewidth=1)
+    plt.title('Hap-set Scree Plot')
+    plt.xlabel('component')
+    plt.ylabel('explained variance')
+    plt.show()
 
 
 def main():
-    model = Kmeans()
+    # data = read_inputs(all_matrix_filepath, hapset_filepath)
+    # find_best_predictor_count(data)
+    ks = [2, 3, 4, 5, 6]
+    predictor_counts = [2, 3, 5, 10]
+    run_experiment(all_matrix_filepath, hapset_filepath, ks, predictor_counts)
 
-    patient_ID, features, feature_names = model.read_data("/Users/juliapark/GitHub/julia-evolution-data/matrix-chrY.csv")
-    model.fit(patient_ID, features)
-    print(model.patient_clusters[0])
-    print(model.patient_clusters[1])
-    print(model.patient_clusters[2])
-    print(model.patient_clusters[3])
-    print(model.patient_clusters[4])
+
+    # df = pd.read_csv(patient_region_filepath, sep="\t")
+    # df = df[['Sample name', 'Sex', 'Population code', 'Population name', 'Superpopulation code', 'Superpopulation name']]
+    # cluster0 = df[df['Sample name'].isin(model.patient_clusters[0])]
+
+    return
+
+
 
 
 

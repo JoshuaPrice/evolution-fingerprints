@@ -30,7 +30,7 @@ class Hierarchical:
 
     def cluster_samples(self):
         mat = self.data_matrix
-        cluster = AgglomerativeClustering(n_clusters=3, affinity='euclidean')
+        cluster = AgglomerativeClustering(n_clusters=self.k, affinity='euclidean')
         return cluster.fit_predict(mat)
 
     def plot_dendogram(self):

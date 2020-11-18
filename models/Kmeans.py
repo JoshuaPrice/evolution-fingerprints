@@ -4,13 +4,19 @@ import random
 import csv
 from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
+import utils
 
+
+random.seed()
 
 # change this to your data file path
 chrY_matrix_filepath = "/Users/juliapark/GitHub/julia-evolution-data/matrix-chrY.csv"
 patient_region_filepath = "/Users/juliapark/GitHub/julia-evolution-data/igsr_samples.tsv"
 all_matrix_filepath = "/Users/juliapark/GitHub/julia-evolution-data/full-data-matrix.csv"
-hapset_filepath = "/Users/juliapark/GitHub/julia-evolution-data/hap-set.csv"
+hapset_filepath = "/Users/juliapark/GitHub/evolution-fingerprints/smalldata/hap_set.csv"
+
+chosen_k = 4
+hapset_p = 5
 
 
 class Kmeans:
@@ -76,7 +82,8 @@ class Kmeans:
     def fit(self, patient_ID, data):
         """
         Args:
-            x: Training example inputs. Shape (n_examples, dim).
+            patient_ID: vector of patient IDs
+            data: snp data matrix
         """
         # random initialization
         for i in range(self.k):
@@ -110,9 +117,8 @@ class Kmeans:
             if optimized:
                 break
 
-def read_inputs(data_filepath, filter_filepath):
+def read_inputs(data_filepath, snp_set):
     full_matrix = pd.read_csv(data_filepath, index_col=0)
-    snp_set = np.loadtxt(filter_filepath, dtype="U10", delimiter=',')
 
     full_mat_cols = full_matrix.columns
     filtered_cols = full_mat_cols.intersection(snp_set)
@@ -120,7 +126,8 @@ def read_inputs(data_filepath, filter_filepath):
     return full_matrix.loc[:, filtered_cols], patient_ID
 
 def run_experiment(data_filepath, filter_filepath, ks, predictor_counts, rounds=3):
-    features, patient_ID = read_inputs(data_filepath, filter_filepath)
+    snp_set = utils.get_snps(filter_filepath)
+    features, patient_ID = read_inputs(data_filepath, snp_set)
     features = features.to_numpy()
     for k in ks:
         for predictor_count in predictor_counts:
@@ -135,12 +142,13 @@ def run_experiment(data_filepath, filter_filepath, ks, predictor_counts, rounds=
                 print("finished ", output_filepath)
 
 
-def find_best_predictor_count(inputs):
+def find_best_predictor_count(inputs, set_type):
     pca = PCA(n_components=50)
     features = pca.fit_transform(inputs)
     PC_values = np.arange(pca.n_components_) + 1
     plt.plot(PC_values, pca.explained_variance_ratio_, 'ro-', linewidth=1)
-    plt.title('Hap-set Scree Plot')
+    title = '%s Scree Plot' % (set_type)
+    plt.title(title)
     plt.xlabel('component')
     plt.ylabel('explained variance')
     plt.show()
@@ -148,7 +156,7 @@ def find_best_predictor_count(inputs):
 
 def main():
     # data = read_inputs(all_matrix_filepath, hapset_filepath)
-    # find_best_predictor_count(data)
+    # find_best_predictor_count(data, )
     ks = [2, 3, 4, 5, 6]
     predictor_counts = [2, 3, 5, 10]
     run_experiment(all_matrix_filepath, hapset_filepath, ks, predictor_counts)

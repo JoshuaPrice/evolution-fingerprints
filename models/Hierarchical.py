@@ -34,22 +34,25 @@ class Hierarchical:
         return cluster.fit_predict(mat)
 
     def plot_dendogram(self):
-        plt.figure(figsize=(10, 7))
-        plt.title("Coronary artery disease tree")
-        dend = hierarchy.dendrogram(hierarchy.linkage(self.data_matrix, method='ward'))
-        plt.savefig('../figures/tree.png')
+        plt.figure(figsize=(6, 3))
+        # plt.title(self.set_id + " tree")
+        plt.title('Alzheimers SNP Set Hierarchical Clustering Dendogram')
+        hierarchy.dendrogram(hierarchy.linkage(self.data_matrix, method='ward'), color_threshold=2.6)
+        plt.xlabel('Individuals')
+        plt.ylabel('Distance')
+        plt.savefig('../figures/' + self.set_id + '_20tree.png')
 
     def save_clusters_to_csv(self):
         cluster_ids = self.cluster_samples()
 
-        # generate list of lists
+        # generate empty list of lists
         sample_lists = [[]] * self.k
         for i in range(len(cluster_ids)):
             cluster_id = cluster_ids[i]
             patient_id = self.patients[i]
             sample_lists[cluster_id] = sample_lists[cluster_id] + [patient_id]
 
-        save_path = data_dir + '/clusters_' + self.set_id + '_' + str(self.k) + '.csv'
+        save_path = data_dir + '/clusters100_' + self.set_id + '_' + str(self.k) + '.csv'
 
         with open(save_path, "w", newline="") as f:
             writer = csv.writer(f)
@@ -58,8 +61,7 @@ class Hierarchical:
 
 def main(data_file, mat_file, set_id, num_clusters):
     H = Hierarchical(data_file, mat_file, set_id, num_clusters)
-    # clusters = H.cluster_samples()
-    # H.plot_dendogram()
+    H.plot_dendogram()
     H.save_clusters_to_csv()
 
 

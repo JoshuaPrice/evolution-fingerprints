@@ -35,14 +35,14 @@ class Hierarchical:
 
     def plot_dendogram(self):
         plt.figure(figsize=(10, 7))
-        plt.title("Coronary artery disease tree")
+        plt.title(self.set_id + " tree")
         dend = hierarchy.dendrogram(hierarchy.linkage(self.data_matrix, method='ward'))
         plt.savefig('../figures/tree.png')
 
     def save_clusters_to_csv(self):
         cluster_ids = self.cluster_samples()
 
-        # generate list of lists
+        # generate empty list of lists
         sample_lists = [[]] * self.k
         for i in range(len(cluster_ids)):
             cluster_id = cluster_ids[i]

@@ -17,7 +17,7 @@ Usage as module:
     ev.get_pop_dist()
 '''
 POP_PATH_INIT = None #if using ev.get_pop_dist(), set this as 'PATH_TO_EVFI/igsr_samples.tsv'
-DATA_PATH_INIT = '/mnt/datadrive/data/full-data-matrix.csv'
+DATA_PATH_INIT = 'smalldata/full-data-matrix.csv'
 
 import sys
 

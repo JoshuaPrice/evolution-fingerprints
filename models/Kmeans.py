@@ -208,7 +208,7 @@ def main():
         run_experiment(all_sets_filepath[i], all_sets_types[i], ks, all_sets_predictor[i])
     # '''
 
-    # df = pd.read_csv(patient_region_filepath, sep="\t")
+    df = pd.read_csv(patient_region_filepath, sep="\t")
     # df = df[['Sample name', 'Sex', 'Population code', 'Population name', 'Superpopulation code', 'Superpopulation name']]
     # cluster0 = df[df['Sample name'].isin(model.patient_clusters[0])]
 

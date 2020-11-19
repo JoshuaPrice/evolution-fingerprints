@@ -44,7 +44,7 @@ for filename in filenames:
 
     # label axes and title
     plt.xlabel('Cluster')
-    plt.ylabel('Percentage among datapoints in cluster')
+    plt.ylabel('Percentage of population in cluster')
     if filename == 'Hapset_k3_p5_1.csv':
         cat = 'haplotype set'
     elif filename == 'Coronary_Artery_k3_p24_2.csv':

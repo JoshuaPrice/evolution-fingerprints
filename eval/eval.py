@@ -16,8 +16,8 @@ Usage as module:
     ev.init_pop(pop_path)
     ev.get_pop_dist()
 '''
-POP_PATH_INIT = None #if using ev.get_pop_dist(), set this as 'PATH_TO_EVFI/igsr_samples.tsv'
-DATA_PATH_INIT = 'smalldata/full-data-matrix.csv'
+POP_PATH_INIT = '~/evfi/igsr_samples.tsv' #if using ev.get_pop_dist(), set this as 'PATH_TO_EVFI/igsr_samples.tsv'
+DATA_PATH_INIT = '/mnt/datadrive/data/full-data-matrix.csv'
 
 import sys
 
@@ -185,16 +185,20 @@ class Eval:
 
     def get_pop_dist(self, use_superpop=True):
         '''
-        Returns a numpy array (num_clusters x num_populations)
+        Generates a table (num_clusters x num_populations)
         of percentages of each population in each cluster
         use_superpop : denotes to use superpopulation(broader e.g. EURopean)
                        instead of population(e.g. FINnish)
+
+        Returns: pandas dataframe of the percentages
         '''
         pop_idx_dict = {}
         for pop, superpop in self.pops.values():
             label = superpop if use_superpop else pop
             if label not in pop_idx_dict.keys():
                 pop_idx_dict[label] = len(pop_idx_dict.keys())
+
+        list_pops = [key for key, value in sorted(pop_idx_dict.items(), key=lambda item: item[1])]
 
         pop_dist = np.zeros(shape=(self.num_clusters, len(pop_idx_dict.keys())))
         for cluster_idx in range(self.num_clusters):
@@ -205,30 +209,32 @@ class Eval:
                 pop_dist[cluster_idx, pop_idx_dict[label]] += 1
 
         pop_dist = (pop_dist.T / np.sum(pop_dist, axis=1)).T
+        pop_dist_df = pd.DataFrame(data = pop_dist, \
+                index = list(range(self.num_clusters)), columns = list_pops)
 
-        return pop_dist
+        return pop_dist_df
 
 
 def run_experiment(ev, cluster_path):
     print("Path :", cluster_path)
     
-    print("Silhouette: ", ev.silhouette())
+    # print("Silhouette: ", ev.silhouette())
 
-    within_var, ch_score = ev.calinski_harabasz()
+    # within_var, ch_score = ev.calinski_harabasz()
     # skip if score is nan
-    if np.isnan(ch_score):
-        print("has an undefined cluster; skipping...\n")
-        return
-    print("Calinski-Harabasz score", format(ch_score, ".2f"), \
-            "// within_variance", format(within_var, ".2f"))
+    # if np.isnan(ch_score):
+    #    print("has an undefined cluster; skipping...\n")
+    #    return
+    # print("Calinski-Harabasz score", format(ch_score, ".2f"), \
+    #        "// within_variance", format(within_var, ".2f"))
 
-    # pop_dist = ev.get_pop_dist(use_superpop=True)
-    # print(pop_dist)
+    pop_dist = ev.get_pop_dist(use_superpop=True)
+    print(pop_dist)
 
 
 def main(pop_path, data_path, cluster_paths):
     ev = Eval(data_path)
-    # ev.init_pop(pop_path) :: uncomment and set valid POP_PATH_INIT at top of file  if using ev.get_pop_dist()
+    ev.init_pop(pop_path) # :: uncomment and set valid POP_PATH_INIT at top of file  if using ev.get_pop_dist()
 
     for cluster_path in cluster_paths:
         ev.read_clusters(cluster_path)

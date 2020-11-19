@@ -186,7 +186,7 @@ class Eval:
     def get_pop_dist(self, use_superpop=True):
         '''
         Generates a table (num_clusters x num_populations)
-        of percentages of each population in each cluster
+        of percentages of each population in each cluster (adding up to 1 per population)
         use_superpop : denotes to use superpopulation(broader e.g. EURopean)
                        instead of population(e.g. FINnish)
 
@@ -208,7 +208,7 @@ class Eval:
                 label = pop[1] if use_superpop else pop[0]
                 pop_dist[cluster_idx, pop_idx_dict[label]] += 1
 
-        pop_dist = (pop_dist.T / np.sum(pop_dist, axis=1)).T
+        pop_dist = pop_dist / np.sum(pop_dist, axis=0)
         pop_dist_df = pd.DataFrame(data = pop_dist, \
                 index = list(range(self.num_clusters)), columns = list_pops)
 

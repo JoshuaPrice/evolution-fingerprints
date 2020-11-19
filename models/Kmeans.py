@@ -59,9 +59,10 @@ class Kmeans:
         self.clusters = {}
         self.patient_clusters = {}
 
-    '''
+
     def read_data_frequent(self, csv_path):
         """
+        OLD MODEL: DO NOT USE
         Args:
             csv_path: path to a csv file
         """
@@ -75,21 +76,17 @@ class Kmeans:
         patient_ID = np.loadtxt(csv_path, delimiter=',', dtype="U10", skiprows=1, usecols=patient_cols)
         feature_names = headers[1:]
 
-        # by PCA
-        pca = PCA(n_components=self.predictor_count)
-        final_features = pca.fit_transform(inputs)
-        feature_names = pca
 
         # by frequency
-        #frequency = np.sum(inputs, axis=0)
-        #ind = np.argpartition(frequency, -1 * self.predictor_count)[-1 * self.predictor_count:]
-        #ind = ind[np.argsort(frequency[ind])]
+        frequency = np.sum(inputs, axis=0)
+        ind = np.argpartition(frequency, -1 * self.predictor_count)[-1 * self.predictor_count:]
+        ind = ind[np.argsort(frequency[ind])]
 
-        #final_features = inputs[:, ind]
-        #feature_names = feature_names[ind]
+        final_features = inputs[:, ind]
+        feature_names = feature_names[ind]
 
         return patient_ID, final_features, feature_names
-    '''
+
 
     def fit(self, data, patient_ID):
         """

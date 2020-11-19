@@ -30,12 +30,12 @@ for k in KS:
         print()
 '''
 file_pop = '~/evfi/igsr_samples.tsv'
-#filedir = '../smalldata/clusters_'
-filedir = '../smalldata/kmeans_clusters/final_clusters/best_clusters_kmeans_'
-filenames = ['ADHD_k3_p16_1.csv', 'Alzheimers_k3_p8_2.csv', 'Coronary_Artery_k3_p24_2.csv',\
-        'Hapset_k3_p5_1.csv', 'Height_k3_p40_1.csv']
-#filenames = ['ADHD_set_3.csv', 'alzheimers_set_3.csv', 'coronary_artery_3.csv',\
-#        'hap_set_3.csv', 'height_set_3.csv']
+filedir = '../smalldata/clusters_'
+#filedir = '../smalldata/kmeans_clusters/final_clusters/best_clusters_kmeans_'
+#filenames = ['ADHD_k3_p16_1.csv', 'Alzheimers_k3_p8_2.csv', 'Coronary_Artery_k3_p24_2.csv',\
+#        'Hapset_k3_p5_1.csv', 'Height_k3_p40_1.csv']
+filenames = ['ADHD_set_3.csv', 'alzheimers_set_3.csv', 'coronary_artery_3.csv',\
+        'hap_set_3.csv', 'height_set_3.csv']
 for filename in filenames:
     filepath = filedir + filename
     ev.read_clusters(filepath)
@@ -48,16 +48,16 @@ for filename in filenames:
     # label axes and title
     plt.xlabel('Cluster')
     plt.ylabel('Percentage of population in cluster')
-    if filename == 'Hapset_k3_p5_1.csv':
+    if filename == 'hap_set_3.csv':
         cat = 'haplotype_set'
-    elif filename == 'Coronary_Artery_k3_p24_2.csv':
+    elif filename == 'coronary_artery_3.csv':
         cat = 'coronary_artery_disease'
     else:
         cat = filename.split('_')[0]
-    plt.title('Population distribution for ' + cat + ' (K-means)') 
+    plt.title('Population distribution for ' + cat + ' (hierarchical)') 
     
     plt.tight_layout()
-    plt.savefig('../figures/' + cat + 'popdist_kmeans.png')
+    plt.savefig('../figures/' + cat + '_popdist_hierarchical.png')
 
 
 
